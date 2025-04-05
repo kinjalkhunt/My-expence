@@ -54,18 +54,6 @@ function MonthSidebar() {
         {id: 1, name: "Home"},
         {id: 2, name: "Expense"},
         {id: 3,name: "Month"}
-        // { id: 1, name: 'January', days: 31 },
-        // { id: 2, name: 'February', days: 28 },
-        // { id: 3, name: 'March', days: 31 },
-        // { id: 4, name: 'April', days: 30 },
-        // { id: 5, name: 'May', days: 31 },
-        // { id: 6, name: 'June', days: 30 },
-        // { id: 7, name: 'July', days: 31 },
-        // { id: 8, name: 'August', days: 31 },
-        // { id: 9, name: 'September', days: 30 },
-        // { id: 10, name: 'October', days: 31 },
-        // { id: 11, name: 'November', days: 30 },
-        // { id: 12, name: 'December', days: 31 }
     ];
 
     const handleMonthClick = (monthName) => {
@@ -73,7 +61,7 @@ function MonthSidebar() {
     };
 
     return (
-        <div className='w-32 h-screen bg-[#1B1B1B] p-4'>
+        <div className='w-64 h-screen bg-[#1B1B1B] p-4'>
             {/* 👇 Profile Letter */}
             <div className="w-full flex justify-start items-center mb-6">
                 <div className="bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold">
@@ -86,9 +74,8 @@ function MonthSidebar() {
                     <li
                         key={month.id}
                         onClick={() => handleMonthClick(month.name)}
-                        className="text-white p-2 rounded hover:bg-gray-100 cursor-pointer"
-                    >
-                        <span className="text-xl font-semibold text-white">{month.name}</span>
+                        className="w-full text-white p-2 rounded hover:bg-white hover:text-black cursor-pointer">
+                        <span className="text-xl px-3 font-semibold">{month.name}</span>
                     </li>
                 ))}
             </ul>
