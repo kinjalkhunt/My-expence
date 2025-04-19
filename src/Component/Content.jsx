@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { router } from "../routing.jsx";
+// import { router } from "../routing.jsx";
 import PrivateRoute from "./page/PrivateRoute.jsx";
+import { router } from "../routing.jsx";
 
 function Content() {
   return (
@@ -21,7 +22,7 @@ function Content() {
                 key={ind}
                 path={route.path}
                 element={
-                    route.path.startsWith("/month") ? (
+                    route.path.startsWith("/home") ? (
                     <PrivateRoute>
                       <Element />
                     </PrivateRoute>
@@ -32,7 +33,7 @@ function Content() {
               />
             );
           })}
-          <Route path="/" element={<Navigate to="/Home" replace />} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
         </Routes>
       </Suspense>
     </div>

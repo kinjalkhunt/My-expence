@@ -5,19 +5,20 @@ const Login = React.lazy(() => import("./Component/page/Login"));
 const MonthPage = React.lazy(() => import("./Component/MonthPage"));
 const Home = React.lazy(() => import("./Component/Home"));
 const Expence = React.lazy(() => import("./Component/expence"));
-const Month = React.lazy(() => import("./Component/Month"));
+const Month = React.lazy(() => import("./Component/MonthPage"));
+const Register = React.lazy(() => import("./Component/page/Register"))
 
 export const router = [
     {
-        path: "/login",
+        path: "/",
         name: "login",
         element: Login,
     },
-    {
-        path: "/month/:monthName",
-        name: "month-detail",
-        element: MonthPage,
-    },
+    // {
+    //     path: "/month/:monthName",
+    //     name: "month-detail",
+    //     element: MonthPage,
+    // },
     {
         path: "/home",
         name: "home",
@@ -30,7 +31,12 @@ export const router = [
     },
     {
         path: "/month",
-        name: "Month",
+        name: "month",
         element: Month
+    },
+    {
+        path: "/register",
+        name: "register",
+        element: Register
     }
 ];
