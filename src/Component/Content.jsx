@@ -22,7 +22,7 @@ function Content() {
                 key={ind}
                 path={route.path}
                 element={
-                    route.path.startsWith("/home") ? (
+                    route.path.startsWith("/") ? (
                     <PrivateRoute>
                       <Element />
                     </PrivateRoute>
