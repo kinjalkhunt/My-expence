@@ -1,43 +1,38 @@
 import React, { Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-// import { router } from "../routing.jsx";
-import PrivateRoute from "./page/PrivateRoute.jsx";
-import { router } from "../routing.jsx";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { router } from "../routing";
+import PrivateRoute from "./page/PrivateRoute";
 
-function Content() {
+const Content = () => {
   return (
-    <div>
-      <Suspense
-        fallback={
-          <div className="flex justify-center h-screen bg-[#1a2c38]">
-            {/* Loader */}
-          </div>
-        }
-      >
-        <Routes>
-          {router?.map((route, ind) => {
-            const Element = route.element;
-            return (
-              <Route
-                key={ind}
-                path={route.path}
-                element={
-                    route.path.startsWith("/") ? (
-                    <PrivateRoute>
-                      <Element />
-                    </PrivateRoute>
-                  ) : (
+    <Suspense fallback={<div className="flex justify-center h-screen bg-[#1a2c38]">Loading...</div>}>
+      <Routes>
+        {router.map((route, index) => {
+          const Element = route.element;
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.path.startsWith("/home") ||
+                route.path === "/expence" ||
+                route.path === "/month" ||
+                route.path === "/customers" ||
+                route.path === "/settings" ? (
+                  <PrivateRoute>
                     <Element />
-                  )
-                }
-              />
-            );
-          })}
-          <Route path="/" element={<Navigate to="/home" replace />} />
-        </Routes>
-      </Suspense>
-    </div>
+                  </PrivateRoute>
+                ) : (
+                  <Element />
+                )
+              }
+            />
+          );
+        })}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </Suspense>
   );
-}
+};
 
 export default Content;
