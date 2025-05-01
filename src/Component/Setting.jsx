@@ -6,28 +6,29 @@ import { FaTrashAlt } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdBackup } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-
+import Logout from '../Component/page/Logout';
+import { MdNavigateNext } from "react-icons/md";
 function Setting() {
     const [isLogoutOpen, setIsLogoutOpen] = useState(false);
     const navigate = useNavigate()
-    
+
     const handleLogoutClick = () => {
         setIsLogoutOpen(true);
-        navigate("/")
+
     };
 
     const handleCloseLogout = () => {
         setIsLogoutOpen(false);
     };
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 bg-gray-50 min-h-screen w-[50rem]">
             <h1 className="text-2xl font-semibold mb-6">Settings</h1>
 
             {/* Home Expence Section */}
             <div className="text-sm text-gray-500 mb-4">home expence</div>
 
             {/* Book Settings */}
-            <div className="bg-white rounded-lg shadow-sm mb-4">
+            <div className="bg-white rounded-lg border-2 border-gray-400 mb-4">
                 <div className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-blue-100 rounded-lg">
@@ -38,7 +39,7 @@ function Setting() {
                             <div className="text-sm text-gray-500">Delete your khata</div>
                         </div>
                     </div>
-                    <div className="text-gray-400">›</div>
+                    <MdNavigateNext className='h-5 w-5' />
                 </div>
             </div>
 
@@ -47,7 +48,7 @@ function Setting() {
 
             {/* Plans and Billing */}
             <div className="space-y-2">
-                <div className="bg-white rounded-lg shadow-sm">
+                <div className="bg-white rounded-lg border-2 border-gray-400">
                     <div className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-purple-100 rounded-lg">
@@ -58,12 +59,12 @@ function Setting() {
                                 <div className="text-sm text-gray-500">Manage your plans and download invoices</div>
                             </div>
                         </div>
-                        <div className="text-gray-400">›</div>
+                        <MdNavigateNext className='h-5 w-5' />
                     </div>
                 </div>
 
                 {/* Backup Information */}
-                <div className="bg-white rounded-lg shadow-sm">
+                <div className="bg-white rounded-lg border-2 border-gray-400">
                     <div className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-green-100 rounded-lg">
@@ -74,12 +75,12 @@ function Setting() {
                                 <div className="text-sm text-gray-500">Check your data sync status</div>
                             </div>
                         </div>
-                        <div className="text-gray-400">›</div>
+                        <MdNavigateNext className='h-5 w-5' />
                     </div>
                 </div>
 
                 {/* Recycle Bin */}
-                <div className="bg-white rounded-lg shadow-sm">
+                <div className="bg-white rounded-lg border-2 border-gray-400">
                     <div className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-red-100 rounded-lg">
@@ -90,12 +91,12 @@ function Setting() {
                                 <div className="text-sm text-gray-500">Access deleted data</div>
                             </div>
                         </div>
-                        <div className="text-gray-400">›</div>
+                        <MdNavigateNext className='h-5 w-5' />
                     </div>
                 </div>
 
                 {/* Help & Support */}
-                <div className="bg-white rounded-lg shadow-sm">
+                <div className="bg-white rounded-lg border-2 border-gray-400">
                     <div className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-yellow-100 rounded-lg">
@@ -106,12 +107,12 @@ function Setting() {
                                 <div className="text-sm text-gray-500">Understand how it works</div>
                             </div>
                         </div>
-                        <div className="text-gray-400">›</div>
+                        <MdNavigateNext className='h-5 w-5' />
                     </div>
                 </div>
 
                 {/* Logout */}
-                <div className="bg-white rounded-lg shadow-sm">
+                <div className="bg-white rounded-lg border-2 border-gray-400">
                     <div
                         className="p-4 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
                         onClick={handleLogoutClick}
@@ -125,7 +126,7 @@ function Setting() {
                                 <div className="text-sm text-gray-500">You will be logged out after data backup is complete</div>
                             </div>
                         </div>
-                        <div className="text-gray-400">›</div>
+                        <MdNavigateNext className='h-5 w-5' />
                     </div>
                 </div>
             </div>
