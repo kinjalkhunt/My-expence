@@ -13,13 +13,13 @@ const Expence = () => {
 
     
     const handleSidebarOpen = (type) => {
-        // setSidebarType(type);
+        setSidebarType(type);
         setIsSidebarOpen(true);
     };
 
-    // const handleSidebarClose = () => {
-    //     setIsSidebarOpen(false);
-    // };
+    const handleSidebarClose = () => {
+        setIsSidebarOpen(false);
+    };
 
     // Dummy data for demonstration (replace with actual data source)
     const allEntries = [
@@ -202,7 +202,7 @@ const Expence = () => {
 
             <RightSidebar
                 isOpen={isSidebarOpen}
-                // onClose={handleSidebarClose}
+                onClose={handleSidebarClose}
                 type={sidebarType}
             />
         </div>
