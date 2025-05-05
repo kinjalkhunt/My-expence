@@ -3,7 +3,7 @@ import React from "react";
 const MonthSidebar = React.lazy(() => import("./Component/MonthSidebar"));
 const Login = React.lazy(() => import("./Component/page/Login"));
 const Home = React.lazy(() => import("./Component/Home"));
-const Expence = React.lazy(() => import("./Component/expence"));
+const Expence = React.lazy(() => import("./Component/Expence"));
 const Register = React.lazy(() => import("./Component/page/Register"));
 const Customers = React.lazy(() => import("./Component/Costomer"));
 const Settings = React.lazy(() => import("./Component/Setting"));

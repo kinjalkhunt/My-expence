@@ -11,7 +11,9 @@ function MonthSidebar({ openSidebar, handleOpen }) {
   const sidebarRef = useRef(null);
 
   const email = localStorage.getItem("email");
+  const name = localStorage.getItem("displayName")
   const profileInitial = email ? email[0].toUpperCase() : "M";
+  // const profileName = name  ? name[0].toUpperCase(): email
   // console.log(">>>>>>>>>", profileInitial);
 
 
@@ -69,7 +71,7 @@ function MonthSidebar({ openSidebar, handleOpen }) {
             {profileInitial}
           </div>
           <div className="ml-3">
-            <div className="text-gray-400 text-xs">{email || "user@example.com"}</div>
+            <div className="text-gray-400 text-xs">{name || "user@example.com"}</div>
             <div className="flex items-center">
               <span className="h-2 w-2 bg-green-500 rounded-full mr-1"></span>
               <span className="text-green-500 text-xs">Online</span>

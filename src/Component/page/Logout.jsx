@@ -6,7 +6,13 @@ const Logout = ({ handleCloses }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("email");
+        localStorage.removeItem("name");
+        localStorage.removeItem("displayName");
+
+
+
         removeCookie("token");
         navigate('/');
         window.location.reload();

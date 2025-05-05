@@ -4,7 +4,7 @@ import { userLogin } from "@/services/AuthService";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 import loginbgimage from "../assets/loginbgimage.jpg";
-import { signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/FireBaseConfig";
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -19,6 +19,8 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await userLogin({ body: { email, password } });
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("email", email);
             console.log("Login Successfully", response);
             setMessage(response.message);
             navigate("/home");
@@ -32,13 +34,18 @@ const Login = () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             console.log("Google login successful", result);
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("email", result.user.email);
+            localStorage.setItem("displayName", result.user.displayName || "User");
+
             navigate("/home");
+
         } catch (error) {
             setMessage(error.message || "Google login failed");
             console.error("Google login failed", error);
         }
     };
-    
+
 
     return (
         <div

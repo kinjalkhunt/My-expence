@@ -9,7 +9,7 @@ function RightSidebar({ isOpen, onClose, type }) {
         <>
             <div
                 className="fixed inset-0 bg-opacity-50 z-10"
-                onClick={onClose}
+                // onClick={onClose}
             />
             {/* Sidebar */}
             <div className="fixed right-0 top-0 h-full w-[400px] bg-white shadow-xl/150 p-6">
