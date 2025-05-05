@@ -200,11 +200,8 @@ const Expence = () => {
                 </div>
             </div>
 
-            <RightSidebar
-                isOpen={isSidebarOpen}
-                onClose={handleSidebarClose}
-                type={sidebarType}
-            />
+            <RightSidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} type={sidebarType} />
+
         </div>
     );
 };
