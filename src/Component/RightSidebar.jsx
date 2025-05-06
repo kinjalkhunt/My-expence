@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IoMdClose } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
+import { paymentIn } from '@/services/PaymentService';
 
 function RightSidebar({ isOpen, onClose, type }) {
     const [amount, setAmount] = useState('');
@@ -15,18 +16,38 @@ function RightSidebar({ isOpen, onClose, type }) {
         setBill(e.target.files[0]);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log({ amount, description, paymentMode, date, bill });
+    
+        if (!amount || !description || !paymentMode || !date) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append('amount', amount);
+        formData.append('description', description);
+        formData.append('paymentMode', paymentMode);
+        formData.append('paymentDate', date);
+        if (bill) {
+            formData.append('receiptFile', bill); // Must match the field expected by backend
+        }
+    
+        try {
+            const result = await paymentIn({ body: formData });
+            alert("Payment added successfully!");
+            onClose(); // Close sidebar
+        } catch (error) {
+            alert(error.message || "Something went wrong.");
+        }
     };
-
+    
+    
     return (
         <>
-            <div
+            {/* <div
                 className="fixed inset-0 bg-opacity-50 z-10"
-                onClick={onClose}
-            />
+            /> */}
             {/* Sidebar */}
             <div className="fixed right-0 top-0 h-full w-[400px] bg-white shadow-xl/150 p-6">
                 <div className="flex justify-between items-center mb-6">
@@ -36,7 +57,7 @@ function RightSidebar({ isOpen, onClose, type }) {
                     </button>
                 </div>
 
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-700 mb-2">Amount</label>
                         <div className="relative">
@@ -124,7 +145,7 @@ function RightSidebar({ isOpen, onClose, type }) {
                     >
                         Save
                     </button>
-                </form>
+                </div>
             </div>
         </>
     );

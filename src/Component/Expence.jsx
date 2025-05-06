@@ -22,79 +22,79 @@ const Expence = () => {
     };
 
     // Dummy data for demonstration (replace with actual data source)
-    const allEntries = [
-        {
-            name: "Milk",
-            date: "2025-05-01",
-            out: 40,
-            in: 0,
-        },
-        {
-            name: "Refund",
-            date: "2025-05-01",
-            out: 0,
-            in: 100,
-        },
-        {
-            name: "Milk",
-            date: "2025-05-01",
-            out: 40,
-            in: 0,
-        },
-        {
-            name: "Refund",
-            date: "2025-05-01",
-            out: 0,
-            in: 100,
-        },
+    // const allEntries = [
+    //     {
+    //         name: "Milk",
+    //         date: "2025-05-01",
+    //         out: 40,
+    //         in: 0,
+    //     },
+    //     {
+    //         name: "Refund",
+    //         date: "2025-05-01",
+    //         out: 0,
+    //         in: 100,
+    //     },
+    //     {
+    //         name: "Milk",
+    //         date: "2025-05-01",
+    //         out: 40,
+    //         in: 0,
+    //     },
+    //     {
+    //         name: "Refund",
+    //         date: "2025-05-01",
+    //         out: 0,
+    //         in: 100,
+    //     },
 
-        {
-            name: "Milk",
-            date: "2025-05-01",
-            out: 40,
-            in: 0,
-        },
-        {
-            name: "Refund",
-            date: "2025-05-01",
-            out: 0,
-            in: 100,
-        },
+    //     {
+    //         name: "Milk",
+    //         date: "2025-05-01",
+    //         out: 40,
+    //         in: 0,
+    //     },
+    //     {
+    //         name: "Refund",
+    //         date: "2025-05-01",
+    //         out: 0,
+    //         in: 100,
+    //     },
 
-        {
-            name: "Milk",
-            date: "2025-05-01",
-            out: 40,
-            in: 0,
-        },
-        {
-            name: "Refund",
-            date: "2025-05-01",
-            out: 0,
-            in: 100,
-        },
+    //     {
+    //         name: "Milk",
+    //         date: "2025-05-01",
+    //         out: 40,
+    //         in: 0,
+    //     },
+    //     {
+    //         name: "Refund",
+    //         date: "2025-05-01",
+    //         out: 0,
+    //         in: 100,
+    //     },
 
-        {
-            name: "Milk",
-            date: "2025-05-01",
-            out: 40,
-            in: 0,
-        },
-        {
-            name: "Refund",
-            date: "2025-05-01",
-            out: 0,
-            in: 100,
-        },
+    //     {
+    //         name: "Milk",
+    //         date: "2025-05-01",
+    //         out: 40,
+    //         in: 0,
+    //     },
+    //     {
+    //         name: "Refund",
+    //         date: "2025-05-01",
+    //         out: 0,
+    //         in: 100,
+    //     },
 
 
-    ];
-    const filteredEntries = allEntries.filter((entry) => entry.date === selectedDate);
-    useEffect(() => {
-        if (filteredEntries.length > 0 && footerRef.current) {
-            footerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    }, [filteredEntries]);
+    // ];
+    // const filteredEntries = allEntries.filter((entry) => entry.date === selectedDate);
+    // useEffect(() => {
+    //     if (filteredEntries.length > 0 && footerRef.current) {
+    //         footerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    //     }
+    // }, [filteredEntries]);
 
 
 
@@ -145,7 +145,7 @@ const Expence = () => {
                     ref={listContainerRef}
                     className="mt-4 px-10 max-h-[400px] overflow-y-auto"
                 >
-                    {filteredEntries.length === 0 ? (
+                    {/* {filteredEntries.length === 0 ? (
                         <p className="text-center text-gray-500 text-lg">0 Entry</p>
                     ) : (
                         filteredEntries.map((entry, index) => (
@@ -161,14 +161,14 @@ const Expence = () => {
                                 </div>
                             </div>
                         ))
-                    )}
+                    )} */}
 
                     {/* footer inside scrollable box */}
                     <div className="border border-gray-300"></div>
 
                     <div
                         ref={footerRef}
-                        className="sticky bottom-0 bg-white border-t border-gray-300 flex justify-center gap-6 p-4 z-10"
+                        className="sticky  bottom-0 bg-white border-t border-gray-300 flex justify-center gap-6 p-4"
                     >
                         <button 
                             onClick={() => handleSidebarOpen('out')} 
