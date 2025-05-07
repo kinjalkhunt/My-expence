@@ -27,23 +27,23 @@ const DefaultLayout = () => {
 
   return (
     <div className="flex h-screen relative">
-      <div
-        className={`${
-          isMobile ? "fixed inset-y-0 left-0 z-50" : "relative"
-        } ${isSidebarOpen ? "w-72" : "w-20"} transition-all duration-300 ease-in-out bg-[#121A2E] text-white h-full overflow-hidden`}
-      >
-        <MonthSidebar openSidebar={isSidebarOpen} handleOpen={handleDrawerSidebar} />
-      </div>
+      {/* Desktop Sidebar */}
+      {!isMobile && (
+        <div className={`${isSidebarOpen ? "w-72" : "w-20"} transition-all duration-300 ease-in-out bg-[#121A2E] text-white h-full overflow-hidden`}>
+          <MonthSidebar openSidebar={isSidebarOpen} handleOpen={handleDrawerSidebar} />
+        </div>
+      )}
 
-      <div className="flex-1 transition-all duration-300 ease-in-out">
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
         <Content />
       </div>
 
-      {isMobile && isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={handleDrawerSidebar}
-        />
+      {/* Mobile Bottom Navigation */}
+      {isMobile && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#121A2E]">
+          <MonthSidebar openSidebar={isSidebarOpen} handleOpen={handleDrawerSidebar} />
+        </div>
       )}
     </div>
   );

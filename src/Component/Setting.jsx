@@ -21,7 +21,7 @@ function Setting() {
         setIsLogoutOpen(false);
     };
     return (
-        <div className="p-6 bg-gray-50 min-h-screen w-[50rem]">
+        <div className="p-6 bg-gray-50 min-h-screen w-full xl:w-[50rem]">
             <h1 className="text-2xl font-semibold mb-6">Settings</h1>
 
             {/* Home Expence Section */}
