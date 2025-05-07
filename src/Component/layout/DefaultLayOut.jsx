@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Content from "../Content";
 import MonthSidebar from "../MonthSidebar";
 import { setIsSidebarOpen } from "../slice/AuthSlice";
+import { ThemeProvider } from "../theme-Provider";
 
 const DefaultLayout = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
