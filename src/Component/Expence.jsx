@@ -3,6 +3,7 @@ import { BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 import RightSidebar from "./RightSidebar";
+import { getPayIn } from "@/services/PaymentService";
 
 const Expence = () => {
     const [selectedDate, setSelectedDate] = useState("2025-05-01");
@@ -10,6 +11,7 @@ const Expence = () => {
     const listContainerRef = useRef(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [sidebarType, setSidebarType] = useState('in'); // 'in' or 'out'
+    const [inEntries, setInEntries] = useState([]);
 
     const handleSidebarOpen = (type) => {
         setSidebarType(type);
@@ -20,82 +22,20 @@ const Expence = () => {
         setIsSidebarOpen(false);
     };
 
-    // Dummy data for demonstration (replace with actual data source)
-    // const allEntries = [
-    //     {
-    //         name: "Milk",
-    //         date: "2025-05-01",
-    //         out: 40,
-    //         in: 0,
-    //     },
-    //     {
-    //         name: "Refund",
-    //         date: "2025-05-01",
-    //         out: 0,
-    //         in: 100,
-    //     },
-    //     {
-    //         name: "Milk",
-    //         date: "2025-05-01",
-    //         out: 40,
-    //         in: 0,
-    //     },
-    //     {
-    //         name: "Refund",
-    //         date: "2025-05-01",
-    //         out: 0,
-    //         in: 100,
-    //     },
+    const fetchInEntries = async () => {
+        try {
+            const data = await getPayIn({ date: selectedDate });
+            console.log('Fetched IN entries:', data);
+            setInEntries(Array.isArray(data) ? data : (data?.data || []));
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-    //     {
-    //         name: "Milk",
-    //         date: "2025-05-01",
-    //         out: 40,
-    //         in: 0,
-    //     },
-    //     {
-    //         name: "Refund",
-    //         date: "2025-05-01",
-    //         out: 0,
-    //         in: 100,
-    //     },
-
-    //     {
-    //         name: "Milk",
-    //         date: "2025-05-01",
-    //         out: 40,
-    //         in: 0,
-    //     },
-    //     {
-    //         name: "Refund",
-    //         date: "2025-05-01",
-    //         out: 0,
-    //         in: 100,
-    //     },
-
-    //     {
-    //         name: "Milk",
-    //         date: "2025-05-01",
-    //         out: 40,
-    //         in: 0,
-    //     },
-    //     {
-    //         name: "Refund",
-    //         date: "2025-05-01",
-    //         out: 0,
-    //         in: 100,
-    //     },
-
-
-    // ];
-    // const filteredEntries = allEntries.filter((entry) => entry.date === selectedDate);
-    // useEffect(() => {
-    //     if (filteredEntries.length > 0 && footerRef.current) {
-    //         footerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    //     }
-    // }, [filteredEntries]);
-
-
+    useEffect(() => {
+        fetchInEntries();
+        // eslint-disable-next-line
+    }, [selectedDate]);
 
     return (
         <div className={`flex flex-col xl:flex-row w-full min-h-screen ${isSidebarOpen ? "opacity-100" : ""}`}>
@@ -114,7 +54,7 @@ const Expence = () => {
                 <div className="flex justify-between items-center p-4 rounded-md gap-4">
                     <div className="flex md:flex-col xl:flex-row gap-4">
                         <div className="w-full md:w-auto">
-                            <label className="text-xl text-gray-500 block mb-1">Date</label>
+                            <label className="md:text-xl text-gray-500 block mb-1">Date</label>
                             <input
                                 type="date"
                                 className="border border-gray-300 px-3 py-2 w-full md:w-96 rounded-md text-sm"
@@ -123,7 +63,7 @@ const Expence = () => {
                         </div>
                         <div className="border-1 h-20 border-gray-400 hidden xl:block"></div>
                         <div className="w-full md:w-auto">
-                            <label className="text-xl text-gray-500 block mb-1 ">Payment Mode</label>
+                            <label className="md:text-xl text-gray-500 block mb-1 ">Payment Mode</label>
                             <select className="border border-gray-300 px-3 py-2 w-full md:w-96 rounded-md text-sm">
                                 <option>ALL</option>
                                 <option>CASH</option>
@@ -147,6 +87,25 @@ const Expence = () => {
                     className="mt-4 px-2 md:px-10 max-h-[400px] overflow-y-auto"
                 >
                     {/* Entries go here */}
+                    <div className="mt-4 px-2 md:px-10">
+                        <h2 className="text-lg font-semibold mb-2 text-green-700">IN Entries</h2>
+                        {inEntries.length === 0 ? (
+                            <div className="text-gray-400">No IN entries for selected date.</div>
+                        ) : (
+                            inEntries.map((entry, idx) => (
+                                <div key={idx} className="flex justify-between items-center border-b py-2">
+                                    <div>
+                                        <div className="font-medium">{entry.description || entry.name}</div>
+                                        <div className="text-xs text-gray-500">{entry.paymentMode || entry.mode}</div>
+                                    </div>
+                                    <div className="text-green-600 font-bold flex items-center gap-1">
+                                        <FaIndianRupeeSign className="inline-block" />
+                                        {entry.amount || entry.in}
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
                     <div className="border border-gray-300"></div>
                     <div
                         ref={footerRef}
@@ -175,9 +134,96 @@ const Expence = () => {
                     <div className="text-lg font-medium text-gray-600">No Transaction Selected</div>
                 </div>
             </div>
-            <RightSidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} type={sidebarType} />
+            <RightSidebar
+                isOpen={isSidebarOpen}
+                onClose={() => {
+                    setIsSidebarOpen(false);
+                    fetchInEntries();
+                }}
+                type={sidebarType}
+            />
         </div>
     );
 };
 
 export default Expence;
+
+
+
+
+
+
+// Dummy data for demonstration (replace with actual data source)
+// const allEntries = [
+//     {
+//         name: "Milk",
+//         date: "2025-05-01",
+//         out: 40,
+//         in: 0,
+//     },
+//     {
+//         name: "Refund",
+//         date: "2025-05-01",
+//         out: 0,
+//         in: 100,
+//     },
+//     {
+//         name: "Milk",
+//         date: "2025-05-01",
+//         out: 40,
+//         in: 0,
+//     },
+//     {
+//         name: "Refund",
+//         date: "2025-05-01",
+//         out: 0,
+//         in: 100,
+//     },
+
+//     {
+//         name: "Milk",
+//         date: "2025-05-01",
+//         out: 40,
+//         in: 0,
+//     },
+//     {
+//         name: "Refund",
+//         date: "2025-05-01",
+//         out: 0,
+//         in: 100,
+//     },
+
+//     {
+//         name: "Milk",
+//         date: "2025-05-01",
+//         out: 40,
+//         in: 0,
+//     },
+//     {
+//         name: "Refund",
+//         date: "2025-05-01",
+//         out: 0,
+//         in: 100,
+//     },
+
+//     {
+//         name: "Milk",
+//         date: "2025-05-01",
+//         out: 40,
+//         in: 0,
+//     },
+//     {
+//         name: "Refund",
+//         date: "2025-05-01",
+//         out: 0,
+//         in: 100,
+//     },
+
+
+// ];
+// const filteredEntries = allEntries.filter((entry) => entry.date === selectedDate);
+// useEffect(() => {
+//     if (filteredEntries.length > 0 && footerRef.current) {
+//         footerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+//     }
+// }, [filteredEntries]);

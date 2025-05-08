@@ -18,38 +18,38 @@ function RightSidebar({ isOpen, onClose, type }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (!amount || !description || !paymentMode || !date) {
             alert("Please fill in all required fields.");
             return;
         }
-    
+
         const formData = new FormData();
         formData.append('amount', amount);
         formData.append('description', description);
         formData.append('paymentMode', paymentMode);
         formData.append('paymentDate', date);
         if (bill) {
-            formData.append('receiptFile', bill); // Must match the field expected by backend
+            formData.append('receiptFile', bill);
         }
-    
+
         try {
             const result = await paymentIn({ body: formData });
             alert("Payment added successfully!");
-            onClose(); // Close sidebar
+            onClose();
         } catch (error) {
             alert(error.message || "Something went wrong.");
         }
     };
-    
-    
+
+
     return (
         <>
             {/* <div
                 className="fixed inset-0 bg-opacity-50 z-10"
             /> */}
             {/* Sidebar */}
-            <div className="fixed right-0 top-0 h-full w-[400px] bg-white shadow-xl/150 p-6">
+            <div className="fixed right-0 top-0 h-full md:w-[350px] w-[250px] bg-white shadow-xl/150 overflow-y-auto max-h-screen p-6">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-semibold text-green-600">{type === 'in' ? 'In Entry' : 'Out Entry'}</h2>
                     <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
@@ -57,7 +57,7 @@ function RightSidebar({ isOpen, onClose, type }) {
                     </button>
                 </div>
 
-                <div className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-700 mb-2">Amount</label>
                         <div className="relative">
@@ -145,7 +145,7 @@ function RightSidebar({ isOpen, onClose, type }) {
                     >
                         Save
                     </button>
-                </div>
+                </form>
             </div>
         </>
     );

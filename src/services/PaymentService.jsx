@@ -1,9 +1,9 @@
 import axios from "axios";
-// In Payment
+// In Payment entry
 export async function paymentIn({ body }) {
     try {
         const response = await axios.post(
-            `${process.env.VITE_LOCAL_URL}/v1/addPay/in`,
+            `${import.meta.env.VITE_LOCAL_URL}/v1/addPay/in`,
             body,
             {
                 headers: {
@@ -17,5 +17,67 @@ export async function paymentIn({ body }) {
     } catch (error) {
         console.error("Payment error:", error);
         throw error.response ? error.response.data : error;
+    }
+}
+// get In Payment
+export async function getPayIn({ date }) {
+    try {
+        const response =  await axios.get(
+            `${import.meta.env.VITE_LOCAL_URL}/v1/getPay/getIn`,
+            {
+                params: { date },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+        console.log("payment getting success:", response);
+        return response.data;
+    } catch (error) {
+        console.error("Payment error:", error);
+        throw error.response ? error.response.data : error;
+    }
+}
+
+// out Payment entry
+
+export async function outPayment ({ body}) {
+    try {
+        const response = await axios.post(
+            `${import.meta.env.VITE_LOCAL_URL}/v1/addOut/expence`,
+            body,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        )
+        console.log("Out Entry payment success:", response);
+        return response.data;
+    } catch (error) {
+        console.error("Payment error:", error);
+        throw error.response ? error.response.data : error;
+        
+    }
+}
+
+// Get Out Payment details
+export async function getOutPayment ({ body}) {
+    try {
+        const response = await axios.get(
+            `${import.meta.env.VITE_LOCAL_URL}/v1/get/getOut`,
+            body,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        )
+        console.log("Out Entry payment success:", response);
+        return response.data;
+    } catch (error) {
+        console.error("Payment error:", error);
+        throw error.response ? error.response.data : error;
+        
     }
 }
