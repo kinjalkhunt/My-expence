@@ -20,14 +20,15 @@ export async function paymentIn({ body }) {
     }
 }
 // get In Payment
-export async function getPayIn({ date }) {
+
+export async function getPayIn({ body }) {
     try {
-        const response =  await axios.get(
+        const response = await axios.get(
             `${import.meta.env.VITE_LOCAL_URL}/v1/getPay/getIn`,
             {
-                params: { date },
+                params: body,
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                 },
             }
         );
@@ -39,9 +40,10 @@ export async function getPayIn({ date }) {
     }
 }
 
+
 // out Payment entry
 
-export async function outPayment ({ body}) {
+export async function outPayment({ body }) {
     try {
         const response = await axios.post(
             `${import.meta.env.VITE_LOCAL_URL}/v1/addOut/expence`,
@@ -57,17 +59,18 @@ export async function outPayment ({ body}) {
     } catch (error) {
         console.error("Payment error:", error);
         throw error.response ? error.response.data : error;
-        
+
     }
 }
 
 // Get Out Payment details
-export async function getOutPayment ({ body}) {
+export async function getOutPayment({ body }) {
     try {
         const response = await axios.get(
             `${import.meta.env.VITE_LOCAL_URL}/v1/get/getOut`,
-            body,
+
             {
+                params: body,
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -78,6 +81,6 @@ export async function getOutPayment ({ body}) {
     } catch (error) {
         console.error("Payment error:", error);
         throw error.response ? error.response.data : error;
-        
+
     }
 }
