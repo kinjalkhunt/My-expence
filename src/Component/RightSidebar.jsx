@@ -7,7 +7,7 @@ function RightSidebar({ isOpen, onClose, type }) {
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [paymentMode, setPaymentMode] = useState('cash');
-    const [date, setDate] = useState('');
+    const [paymentDate, setPaymentDate] = useState('');
     const [bill, setBill] = useState(null);
 
     if (!isOpen) return null;
@@ -34,29 +34,51 @@ function RightSidebar({ isOpen, onClose, type }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validate all required fields
+        if (!amount || !description || !paymentMode || !paymentDate) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
         const formData = new FormData();
+        // Make sure field names match exactly what backend expects
         formData.append("amount", amount);
         formData.append("description", description);
-        formData.append("paymentMode", paymentMode);
-        formData.append("paymentDate", date);
+        formData.append("paymentMode", paymentMode); 
+        formData.append("paymentDate", paymentDate);
 
         if (bill) {
-            formData.append("receipt", bill);
+            formData.append("receiptUrl", bill);
         }
 
         try {
+            console.log("Submitting payment type:", type);
+            let result;
             if (type === "in") {
-                const result = await paymentIn({ body: formData });
-                alert("In Payment added successfully!");
+                result = await paymentIn({ body: formData });
                 console.log("In Payment added successfully:", result);
+                alert("In Payment added successfully!");
             } else if (type === "out") {
-                const result = await outPayment({ body: formData });
-                alert("Out Payment added successfully!");
+                result = await outPayment({ body: formData });
                 console.log("Out Payment added successfully:", result);
+                alert("Out Payment added successfully!");
             }
-            onClose(); // Close the sidebar after successful submission
+
+            // Reset form
+            setAmount('');
+            setDescription('');
+            setPaymentMode('cash');
+            setPaymentDate('');
+            setBill(null);
+            
+            onClose(); 
         } catch (error) {
-            alert(error.message || "Something went wrong.");
+            console.error("Payment error:", error);
+            if (error.message === "All required fields must be filled.") {
+                alert("Please fill in all required fields correctly.");
+            } else {
+                alert(error.message || "Something went wrong. Please try again.");
+            }
         }
     };
 
@@ -66,7 +88,7 @@ function RightSidebar({ isOpen, onClose, type }) {
             ${isOpen ? "translate-y-0 md:translate-x-0" : "translate-y-full md:translate-x-full"}
             transition-transform duration-300 ease-in-out top-0 md:top-0 md:right-0 left-0 md:left-auto h-full w-full md:w-[350px] bg-white shadow-xl overflow-y-auto max-h-screen p-6 z-50 max-sm:h-96
             `}
-             // For mobile screens, set height to 50% of the viewport
+
         >
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-green-600">{type === 'in' ? 'In Entry' : 'Out Entry'}</h2>
@@ -135,8 +157,8 @@ function RightSidebar({ isOpen, onClose, type }) {
                     <div className="relative">
                         <input
                             type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            value={paymentDate}
+                            onChange={(e) => setPaymentDate(e.target.value)}
                             className="w-full pl-4 pr-10 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
                             required
                         />

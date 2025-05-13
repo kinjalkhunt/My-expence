@@ -47,7 +47,9 @@ const Expence = () => {
             setInEntries([]);
         }
     };
-
+    // const handleSetPaymentMode = (mode) => {
+    //     setPaymentMode(mode);
+    // }
     // Add a useEffect to log when inEntries changes
     useEffect(() => {
         console.log('Current inEntries:', inEntries);
@@ -146,14 +148,17 @@ const Expence = () => {
                         {inEntries && inEntries.length > 0 ? (
                             inEntries
                                 .filter(entry => {
-                                    if (paymentMode === 'ALL') return true;
-                                    return entry.paymentMode === paymentMode;
+                                    // Filter based on payment mode
+                                    if (paymentMode === 'ALL') return true; // Show all entries
+                                    return entry.paymentMode.toLowerCase() === paymentMode.toLowerCase(); // Match payment mode
                                 })
                                 .map((entry, idx) => (
                                     <div key={idx} className="flex justify-between items-center border-b py-2">
                                         <div className="flex-1">
                                             <div className="font-medium">{entry.description}</div>
-                                            <div className="text-sm text-[#175cd3] bg-[#d1e9ff] w-12 py-0.5 text-center font-semibold">{entry.paymentMode}</div>
+                                            <div className="text-sm text-[#175cd3] bg-[#d1e9ff] w-12 py-0.5 text-center font-semibold">
+                                                {entry.paymentMode}
+                                            </div>
                                             <div className="text-xs text-gray-500">{entry.paymentDate}</div>
                                             {entry.receiptUrl && (
                                                 <img
@@ -176,7 +181,7 @@ const Expence = () => {
                     </div>
                     <div className="border border-gray-300"></div>
                     <div
-                        ref={footerRef}
+                        // ref={footerRef}
                         className="sticky bottom-0 bg-white border-t border-gray-300 flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 p-2"
                     >
                         <button
