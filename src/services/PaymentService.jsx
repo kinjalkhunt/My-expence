@@ -24,7 +24,7 @@ export async function paymentIn({ body }) {
 export async function getPayIn({ body }) {
     try {
         const response = await axios.get(
-            `${import.meta.env.VITE_LOCAL_URL}/v1/getPay/getIn`,
+            `${import.meta.env.VITE_LOCAL_URL}/v1/addPay/getIn`,
             {
                 params: body,
                 headers: {
@@ -67,7 +67,7 @@ export async function outPayment({ body }) {
 export async function getOutPayment({ body }) {
     try {
         const response = await axios.get(
-            `${import.meta.env.VITE_LOCAL_URL}/v1/get/getOut`,
+            `${import.meta.env.VITE_LOCAL_URL}/v1/addOut/getOut`,
 
             {
                 params: body,

@@ -44,11 +44,15 @@ function RightSidebar({ isOpen, onClose, type }) {
         // Make sure field names match exactly what backend expects
         formData.append("amount", amount);
         formData.append("description", description);
-        formData.append("paymentMode", paymentMode); 
-        formData.append("paymentDate", paymentDate);
+        formData.append("paymentMode", paymentMode);
+        formData.append("expenseDate", paymentDate);
 
         if (bill) {
-            formData.append("receiptUrl", bill);
+            formData.append("receiptUrl", bill || "");
+        }
+
+        for (let pair of formData.entries()) {
+            console.log("nnnnnnnn", pair[0], pair[1]);
         }
 
         try {
@@ -70,8 +74,8 @@ function RightSidebar({ isOpen, onClose, type }) {
             setPaymentMode('cash');
             setPaymentDate('');
             setBill(null);
-            
-            onClose(); 
+
+            onClose();
         } catch (error) {
             console.error("Payment error:", error);
             if (error.message === "All required fields must be filled.") {
@@ -84,7 +88,7 @@ function RightSidebar({ isOpen, onClose, type }) {
 
     return (
         <div
-        className={`fixed right-0 top-0 h-full md:w-[350px] w-[250px] bg-white shadow-xl overflow-y-auto max-h-screen p-6 z-50
+            className={`fixed right-0 top-0 h-full md:w-[350px] w-[250px] bg-white shadow-xl overflow-y-auto max-h-screen p-6 z-50
             ${isOpen ? "translate-y-0 md:translate-x-0" : "translate-y-full md:translate-x-full"}
             transition-transform duration-300 ease-in-out top-0 md:top-0 md:right-0 left-0 md:left-auto h-full w-full md:w-[350px] bg-white shadow-xl overflow-y-auto max-h-screen p-6 z-50 max-sm:h-96
             `}
