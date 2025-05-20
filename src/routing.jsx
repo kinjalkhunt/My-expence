@@ -8,6 +8,7 @@ const Register = React.lazy(() => import("./Component/page/Register"));
 const Customers = React.lazy(() => import("./Component/Costomer"));
 const Settings = React.lazy(() => import("./Component/Setting"));
 const Logout = React.lazy(() => import('./Component/page/Logout'))
+const ViewReport = React.lazy(() => import('./Component/ViewReport'))
 
 export const router = [
   { path: "/home", name: "home", element: Home },
@@ -16,5 +17,6 @@ export const router = [
   { path: "/login", name: "login", element: Login },
   { path: "/customers", name: "customers", element: Customers },
   { path: "/settings", name: "settings", element: Settings },
-  { path: "/logout", name: "logout", element: Logout}
+  { path: "/logout", name: "logout", element: Logout},
+  { path: "/ViewReport", name: "ViewReport", element: ViewReport}
 ];
